@@ -8,8 +8,8 @@ const request = axios.create({
 request.defaults.transformResponse = [function (data) {
   try {
     return jsonBig.parse(data)
-  } catch (err) {
-    return err
+  } catch (error) {
+    return data
   }
 }]
 
