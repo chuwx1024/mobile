@@ -4,8 +4,8 @@
       title="登录"
     />
     <van-cell-group>
-      <van-field   required v-model="value" label="手机号:" placeholder="请输入手机号" />
-      <van-field  required v-model="value" label="密码:" placeholder="请输入密码" />
+      <van-field   required v-model="user.mobile" label="手机号:" placeholder="请输入手机号" />
+      <van-field  required v-model="user.code" label="密码:" placeholder="请输入密码" />
     </van-cell-group>
     <div class="loginOption">
       <van-button type="info" size="large">登录</van-button>
@@ -15,19 +15,61 @@
 </template>
 
 <script>
+import request from '@/utils/request.js'
+
 export default {
-  name: 'LofinPage',
+  name: 'LoginPage',
   components: {},
   props: [],
   data () {
     return {
-
+      user: {
+        mobile: '13911111111',
+        code: '246810'
+      }
     }
   },
   computed: {},
   watch: {},
-  created () {},
-  methods: {}
+  created () {
+    this.onLogin()
+  },
+  methods: {
+    // onLogin () {
+    //   request({
+    //     method: 'post',
+    //     url: '/app/v1_0/authorizations',
+    //     data: this.user
+    //   }).then(res => {
+    //     console.log(res)
+    //   })
+    // }
+    async onLogin () {
+      // const res = await request({
+      //   method: 'post',
+      //   url: '/app/v1_0/authorizations',
+      //   data: this.user
+      // })
+      // console.log(res)
+      const toast = this.$toast.loading({
+        duration: 5,
+        forbidClick: true,
+        message: '登录中....'
+      })
+      try {
+        const res = await request({
+          method: 'post',
+          url: '/app/v1_0/authorizations',
+          data: this.user
+        })
+        console.log(res)
+        toast.clear()
+        this.$toast.success('登录成功')
+      } catch (error) {
+        this.$toast.fail('登录失败' + error)
+      }
+    }
+  }
 }
 
 </script>
