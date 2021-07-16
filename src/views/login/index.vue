@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import request from '@/utils/request.js'
+import { login } from '@/api/user.js'
 
 export default {
   name: 'LoginPage',
@@ -51,23 +51,24 @@ export default {
       //   data: this.user
       // })
       // console.log(res)
-      const toast = this.$toast.loading({
+      this.$toast.loading({
         duration: 5,
         forbidClick: true,
         message: '登录中....'
       })
       try {
-        const res = await request({
-          method: 'post',
-          url: '/app/v1_0/authorizations',
-          data: this.user
-        })
+        // const res = await request({
+        //   method: 'post',
+        //   url: '/app/v1_0/authorizations',
+        //   data: this.user
+        // })
+        const res = login(this.user)
         console.log(res)
-        toast.clear()
         this.$toast.success('登录成功')
       } catch (error) {
         this.$toast.fail('登录失败' + error)
       }
+      // toast.clear()  success 和fail 执行的时候,会把其他的toast先清除
     }
   }
 }
