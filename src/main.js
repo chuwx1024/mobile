@@ -6,6 +6,7 @@ import 'amfe-flexible'
 import './utils/register-vant'
 import '@/styles/index.less'
 import '@/api/user.js'
+// import '@/utils/storage.js'
 
 Vue.config.productionTip = false
 
