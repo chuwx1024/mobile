@@ -62,8 +62,8 @@ export default {
         //   url: '/app/v1_0/authorizations',
         //   data: this.user
         // })
-        const res = login(this.user)
-        console.log(res)
+        const res = await login(this.user)
+        this.$store.commit('setUser', res.data.data)
         this.$toast.success('登录成功')
       } catch (error) {
         this.$toast.fail('登录失败' + error)
