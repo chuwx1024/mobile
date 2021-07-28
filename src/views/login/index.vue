@@ -8,7 +8,7 @@
       <van-field  required v-model="user.code" label="密码:" placeholder="请输入密码" />
     </van-cell-group>
     <div class="loginOption">
-      <van-button type="info" size="large">登录</van-button>
+      <van-button type="info" size="large" @click="goNext">登录</van-button>
     </div>
   </div>
 
@@ -65,10 +65,14 @@ export default {
         const res = await login(this.user)
         this.$store.commit('setUser', res.data.data)
         this.$toast.success('登录成功')
+        // this.$router.push('/')
       } catch (error) {
         this.$toast.fail('登录失败' + error)
       }
       // toast.clear()  success 和fail 执行的时候,会把其他的toast先清除
+    },
+    goNext () {
+      this.$router.push('/')
     }
   }
 }

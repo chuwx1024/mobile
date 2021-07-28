@@ -1,14 +1,11 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Login from '@/views/login/index.vue'
+import Tabbar from '@/views/tabbar'
 
 Vue.use(VueRouter)
 
 const routes = [
-  {
-    path: '/',
-    redirect: '/login'
-  },
   {
     name: 'LoginPage',
     path: '/login',
@@ -18,6 +15,22 @@ const routes = [
     name: 'Test',
     path: '/test',
     component: () => import('@/views/test')
+  },
+  {
+    name: 'Tabbar',
+    path: '/',
+    component: Tabbar,
+    children: [
+      {
+        path: '/',
+        component: () => import('@/views/home')
+      },
+      {
+        path: '/home',
+        component: () => import('@/views/home2')
+      }
+    ]
+
   }
 ]
 
