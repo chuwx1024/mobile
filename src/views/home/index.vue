@@ -86,12 +86,18 @@ export default {
         activeChannel.finished = true
       }
     },
-    onRefresh () {
-      setTimeout(() => {
-        this.$toast('刷新成功')
-        this.isLoading = false
-        this.count++
-      }, 1000)
+    async onRefresh () {
+      const activeChannel = this.channels[this.active]
+      const res = await getArticles({
+        channel_id: activeChannel.id,
+        timestamp: Date.now(),
+        with_top: 1
+      })
+      console.log(res)
+      // 把数据放在顶部
+      activeChannel.articles.unshift(...res.data.data.results)
+      this.isLoading = false
+      this.$toast('刷新成功')
     },
     async loadUserChannels () {
       const res = await getUserChannels()
